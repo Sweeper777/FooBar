@@ -15,7 +15,13 @@ namespace FooBar {
         public void ApplyRules(params IRule<int>[] rules) {
             var ruleCollection = new RuleCollection<int>(rules);
             for (int i = From; i <= To; i += Step) {
-                var output = string.Join("", ruleCollection.TestAgainst(i).Select(x => x.Output));
+                var rulesSatisfied = ruleCollection.TestAgainst(i).ToList();
+
+
+                var highestRank = rulesSatisfied.Min(x => x.Rank);
+                var output = string.Join("", rulesSatisfied
+                                         .Where(x => x.Rank == highestRank)
+                                         .Select(x => x.Output));
                 Console.WriteLine(output == string.Empty ? i.ToString(): output);
             }
         }
