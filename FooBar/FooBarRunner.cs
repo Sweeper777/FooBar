@@ -17,6 +17,10 @@ namespace FooBar {
             for (int i = From; i <= To; i += Step) {
                 var rulesSatisfied = ruleCollection.TestAgainst(i).ToList();
 
+                if (rulesSatisfied.Count == 0) {
+                    Console.WriteLine(i);
+                    continue;
+                }
 
                 var highestRank = rulesSatisfied.Min(x => x.Rank);
                 var output = string.Join("", rulesSatisfied
