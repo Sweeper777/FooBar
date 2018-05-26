@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 namespace FooBar {
-    public class RuleCollection<T> {
+    public class RuleCollection<T>: IEnumerable<IRule<T>> {
         public List<IRule<T>> Rules { get; }
 
         public RuleCollection(IEnumerable<IRule<T>> rules) {
@@ -10,11 +11,15 @@ namespace FooBar {
         }
 
         public IEnumerable<IRule<T>> TestAgainst(T obj) {
-            var rulesSatisfied = Rules.Where(x => x.Test(obj));
-            if (rulesSatisfied.Count() != 1) {
-                return rulesSatisfied.Where(x => !x.IfAndOnlyIf);
-            }
-            return rulesSatisfied;
+            return Rules.Where(x => x.Test(obj));
+        }
+
+        public IEnumerator<IRule<T>> GetEnumerator() {
+            return Rules.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return Rules.GetEnumerator();
         }
     }
 }
