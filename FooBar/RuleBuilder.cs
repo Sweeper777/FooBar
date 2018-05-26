@@ -1,14 +1,19 @@
 ﻿using System;
 namespace FooBar {
     public class RuleBuilder {
-        RuleBuilder(string output) { this.output = output; }
-
         string output;
+        int rank;
 
-        public static RuleBuilder Output(object obj) => new RuleBuilder(obj.ToString());
+        public RuleBuilder SetOutput(object obj) {
+            output = obj.ToString();
+            return this;
+        }
 
-        public IRule<T> IfAndOnlyIf<T>(Predicate<T> predicate) => new PredicateRule<T>(output, true, predicate);
+        public RuleBuilder SetRank(int rank) {
+            this.rank = rank;
+            return this;
+        }
 
-        public IRule<T> If<T>(Predicate<T> predicate) => new PredicateRule<T>(output, false, predicate);
+        public IRule<T> If<T>(Predicate<T> predicate) => new PredicateRule<T>(rank, output, predicate);
     }
 }
