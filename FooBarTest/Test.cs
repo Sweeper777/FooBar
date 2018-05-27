@@ -23,5 +23,42 @@ namespace FooBar.Test {
             Assert.IsTrue(rule.Test(0));
             Assert.IsFalse(rule.Test(1));
         }
+
+        [Test]
+        public void TestTheThing() {
+            var predicate = TheThing.IsDivisibleBy(2);
+            Assert.IsTrue(predicate(4));
+            Assert.IsFalse(predicate(3));
+            predicate = TheThing.IsPositive();
+            Assert.IsTrue(predicate(1));
+            Assert.IsFalse(predicate(0));
+            Assert.IsFalse(predicate(-1));
+            predicate = TheThing.IsNegative();
+            Assert.IsFalse(predicate(1));
+            Assert.IsFalse(predicate(0));
+            Assert.IsTrue(predicate(-1));
+            predicate = TheThing.IsBetween(10, 20);
+            Assert.IsTrue(predicate(10));
+            Assert.IsTrue(predicate(15));
+            Assert.IsTrue(predicate(20));
+            Assert.IsFalse(predicate(9));
+            Assert.IsFalse(predicate(21));
+            predicate = TheThing.IsGreaterThan(5);
+            Assert.IsFalse(predicate(4));
+            Assert.IsFalse(predicate(5));
+            Assert.IsTrue(predicate(6));
+            predicate = TheThing.IsGreaterThanOrEqualTo(5);
+            Assert.IsFalse(predicate(4));
+            Assert.IsTrue(predicate(5));
+            Assert.IsTrue(predicate(6));
+            predicate = TheThing.IsLessThan(5);
+            Assert.IsTrue(predicate(4));
+            Assert.IsFalse(predicate(5));
+            Assert.IsFalse(predicate(6));
+            predicate = TheThing.IsLessThanOrEqualTo(5);
+            Assert.IsTrue(predicate(4));
+            Assert.IsTrue(predicate(5));
+            Assert.IsFalse(predicate(6));
+        }
     }
 }
