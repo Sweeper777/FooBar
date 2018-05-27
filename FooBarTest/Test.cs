@@ -67,5 +67,22 @@ namespace FooBar.Test {
             Assert.IsFalse(stringPredicate("Hello"));
             Assert.IsTrue(stringPredicate("hello"));
         }
+
+        [Test]
+        public void TestPredicateExtensions() {
+            var predicate = PredicateExtensions.And<int>(x => x > 10, x => x > 20);
+            Assert.IsTrue(predicate(21));
+            Assert.IsFalse(predicate(15));
+            Assert.IsFalse(predicate(5));
+
+            predicate = PredicateExtensions.Or<int>(x => x > 10, x => x < 0);
+            Assert.IsTrue(predicate(15));
+            Assert.IsTrue(predicate(-15));
+            Assert.IsFalse(predicate(5));
+
+            predicate = PredicateExtensions.IsNotTrue<int>(x => x == 0);
+            Assert.IsTrue(predicate(-1));
+            Assert.IsFalse(predicate(0));
+        }
     }
 }
