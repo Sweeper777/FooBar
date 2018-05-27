@@ -59,6 +59,13 @@ namespace FooBar.Test {
             Assert.IsTrue(predicate(4));
             Assert.IsTrue(predicate(5));
             Assert.IsFalse(predicate(6));
+
+            var stringPredicate = TheThing.Is("Hello");
+            Assert.IsTrue(stringPredicate("Hello"));
+            Assert.IsFalse(stringPredicate("hello"));
+            stringPredicate = TheThing.IsNot("Hello");
+            Assert.IsFalse(stringPredicate("Hello"));
+            Assert.IsTrue(stringPredicate("hello"));
         }
     }
 }
