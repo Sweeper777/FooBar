@@ -13,7 +13,7 @@ namespace FooBar {
 
         public static Predicate<int> IsPositive() => x => x > 0;
 
-        public static Predicate<int> IsNegative() => IsPositive().IsNotTrue();
+        public static Predicate<int> IsNegative() => x => x < 0;
 
         public static Predicate<T> Is<T>(T obj) where T : IEquatable<T> => x => x.Equals(obj);
 
