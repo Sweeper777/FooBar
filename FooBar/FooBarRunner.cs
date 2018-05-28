@@ -23,11 +23,10 @@ namespace FooBar {
                 }
 
                 var highestRank = rulesSatisfied.Min(x => x.Rank);
-                var possibleOutputs = rulesSatisfied
-                                        .Where(x => x.Rank == highestRank)
-                                        .Select(x => x.Output);
+                var highestRankRules = rulesSatisfied.Where(x => x.Rank == highestRank);
+                var possibleOutputs = highestRankRules.Select(x => x.Output);
                 if (possibleOutputs.Count() > 1) {
-                    throw new Exception("Two or more rules contradict!");
+                    throw new ContradictingRulesException<int>(highestRankRules);
                 }
                 Console.WriteLine(possibleOutputs.First());
             }
