@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using FooBar;
 using NUnit.Framework;
 using System.IO;
@@ -118,5 +118,17 @@ a
             Assert.AreEqual(writer.ToString(), result);
         }
 
+        [Test]
+        public void TestContradictingRules() {
+
+            var writer = new StringWriter();
+            Console.SetOut(writer);
+            Assert.Throws<Exception>(() => {
+                new FooBarRunner(1, 20, 1).ApplyRules(
+                1.Output("a").If(TheThing.IsDivisibleBy(2)),
+                1.Output("b").If(TheThing.IsDivisibleBy(3))
+            );
+            });
+        }
     }
 }
