@@ -23,10 +23,13 @@ namespace FooBar {
                 }
 
                 var highestRank = rulesSatisfied.Min(x => x.Rank);
-                var output = string.Join("", rulesSatisfied
-                                         .Where(x => x.Rank == highestRank)
-                                         .Select(x => x.Output));
-                Console.WriteLine(output == string.Empty ? i.ToString(): output);
+                var possibleOutputs = rulesSatisfied
+                                        .Where(x => x.Rank == highestRank)
+                                        .Select(x => x.Output);
+                if (possibleOutputs.Count() > 1) {
+                    throw new Exception("Two or more rules contradict!");
+                }
+                Console.WriteLine(possibleOutputs.First());
             }
         }
     }
