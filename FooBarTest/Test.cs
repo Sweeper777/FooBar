@@ -123,7 +123,7 @@ a
 
             var writer = new StringWriter();
             Console.SetOut(writer);
-            Assert.Throws<Exception>(() => {
+            Assert.Throws<ContradictingRulesException<int>>(() => {
                 new FooBarRunner(1, 20, 1).ApplyRules(
                 1.Output("a").If(TheThing.IsDivisibleBy(2)),
                 1.Output("b").If(TheThing.IsDivisibleBy(3))
