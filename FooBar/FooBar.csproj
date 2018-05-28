@@ -40,6 +40,7 @@
     <Compile Include="FooBarRunner.cs" />
     <Compile Include="RuleCollection.cs" />
     <Compile Include="FluentInterface.cs" />
+    <Compile Include="ContradictingRulesException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
